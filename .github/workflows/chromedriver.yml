@@ -27,31 +27,30 @@ jobs:
 
       - name: Install System require depedencies
         run: |
-          apt upgrade
-          apt install -y lsb-release sudo
-          apt install -y openssh-client git python
+          sudo apt upgrade
+          sudo apt install -y lsb-release sudo
+          sudo apt install -y openssh-client git python
         
       - name: Install depo_tools
         run: |
-          mkdir /workspace
-          cd /workspace
+          cd ~
           git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
           export PATH="$PATH:/workspace/depot_tools"
       
       - name: Get chromium code
         run: |
-          cd /workspace
-          mkdir /workspace/chromium
-          cd /workspace/chromium
+          mkdir ~/chromium
+          cd ~/chromium
           fetch --nohooks chromium
       
       - name: Install build deps
         run: |
-          cd /workspace/chromium/src
+          cd ~/chromium/src
           ./build/install-build-deps.sh --no-chromeos-fonts
 
       - name: Build chromedriver
         run: |
+          cd ~/chromium/src
           gn gen out/Default
           autoninja -C out/Default chromedriver
           
@@ -62,4 +61,4 @@ jobs:
 
       - name: Display structure of downloaded files
         run: ls -R 
-        working-directory: /workspace/chromium/src/out/Default
+        working-directory: ~/chromium/src/out/Default
