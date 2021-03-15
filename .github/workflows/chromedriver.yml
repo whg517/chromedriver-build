@@ -34,7 +34,8 @@ jobs:
       - name: Install depo_tools
         run: |
           sudo mkdir /workspace
-          sudo cd /workspace
+          sudo chown -R $(id -u):$(id -g) /workspace
+          cd /workspace
           git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
           export PATH="$PATH:/workspace/depot_tools"
       
