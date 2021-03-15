@@ -38,6 +38,7 @@ jobs:
           cd /workspace
           git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
           export PATH="$PATH:/workspace/depot_tools"
+          which fetch
       
       - name: Get chromium code
         run: |
