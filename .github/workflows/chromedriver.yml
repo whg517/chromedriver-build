@@ -25,43 +25,41 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Start SSH via tmate
-        uses: P3TERX/ssh2actions@main
-
-      # - name: Install System require depedencies
-      #   run: |
-      #     sudo apt upgrade
-      #     sudo apt install -y lsb-release sudo
-      #     sudo apt install -y openssh-client git python
+      - name: Install System require depedencies
+        run: |
+          sudo apt upgrade
+          sudo apt install -y lsb-release sudo
+          sudo apt install -y openssh-client git python
         
-      # - name: Install depo_tools
-      #   run: |
-      #     cd ~
-      #     git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
-      #     export PATH="$PATH:/workspace/depot_tools"
+      - name: Install depo_tools
+        run: |
+          sudo mkdir /workspace
+          sudo cd /workspace
+          git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+          export PATH="$PATH:/workspace/depot_tools"
       
-      # - name: Get chromium code
-      #   run: |
-      #     mkdir ~/chromium
-      #     cd ~/chromium
-      #     fetch --nohooks chromium
+      - name: Get chromium code
+        run: |
+          mkdir /workspace/chromium
+          cd /workspace/chromium
+          fetch --nohooks chromium
       
-      # - name: Install build deps
-      #   run: |
-      #     cd ~/chromium/src
-      #     ./build/install-build-deps.sh --no-chromeos-fonts
+      - name: Install build deps
+        run: |
+          cd /workspace/chromium/src
+          ./build/install-build-deps.sh --no-chromeos-fonts
 
-      # - name: Build chromedriver
-      #   run: |
-      #     cd ~/chromium/src
-      #     gn gen out/Default
-      #     autoninja -C out/Default chromedriver
+      - name: Build chromedriver
+        run: |
+          cd /workspace/chromium/src
+          gn gen out/Default
+          autoninja -C out/Default chromedriver
           
-      # # - uses: actions/download-artifact@v2
-      # #   with:
-      # #     name: chromedriver
-      # #     path: path/to/artifact
+      # - uses: actions/download-artifact@v2
+      #   with:
+      #     name: chromedriver
+      #     path: path/to/artifact
 
-      # - name: Display structure of downloaded files
-      #   run: ls -R 
-      #   working-directory: ~/chromium/src/out/Default
+      - name: Display structure of downloaded files
+        run: ls -R 
+        working-directory: /workspace/chromium/src/out/Default
