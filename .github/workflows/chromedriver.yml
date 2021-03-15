@@ -38,21 +38,23 @@ jobs:
           cd /workspace
           git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
           export PATH="$PATH:/workspace/depot_tools"
-          which fetch
       
       - name: Get chromium code
         run: |
+          export PATH="$PATH:/workspace/depot_tools"
           mkdir /workspace/chromium
           cd /workspace/chromium
           fetch --nohooks chromium
       
       - name: Install build deps
         run: |
+          export PATH="$PATH:/workspace/depot_tools"
           cd /workspace/chromium/src
           ./build/install-build-deps.sh --no-chromeos-fonts
 
       - name: Build chromedriver
         run: |
+          export PATH="$PATH:/workspace/depot_tools"
           cd /workspace/chromium/src
           gn gen out/Default
           autoninja -C out/Default chromedriver
