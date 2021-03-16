@@ -44,6 +44,7 @@ jobs:
         run: |
           export PATH="$PATH:/workspace/depot_tools"
           mkdir ./chromium
+          cd ./chromium
           fetch --nohooks --no-history chromium 
 
       # - name: Update call_function.js
