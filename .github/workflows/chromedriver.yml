@@ -50,6 +50,9 @@ jobs:
         run: |
           echo 'foo'
 
+      - name: Start SSH via tmate
+        uses: P3TERX/ssh2actions@main
+
       - name: Install build deps
         run: |
           export PATH="$PATH:/workspace/depot_tools"
