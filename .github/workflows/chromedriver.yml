@@ -25,6 +25,12 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
+      - name: Start SSH via tmate
+        uses: P3TERX/ssh2actions@v1.0.0
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+
       - name: Install System require depedencies
         run: |
           sudo apt upgrade
@@ -49,9 +55,6 @@ jobs:
       # - name: Update call_function.js
       #   run: |
       #     echo 'foo'
-
-      - name: Start SSH via tmate
-        uses: P3TERX/ssh2actions@v1.0.0
 
       - name: Install build deps
         run: |
