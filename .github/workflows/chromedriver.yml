@@ -40,9 +40,10 @@ jobs:
           export PATH="$PATH:/workspace/depot_tools"
       
       - name: Get chromium code
+        working-directory: /workspace
         run: |
           export PATH="$PATH:/workspace/depot_tools"
-          mkdir /workspace/chromium
+          mkdir ./chromium
           fetch --nohooks --no-history chromium 
 
       # - name: Update call_function.js
@@ -50,9 +51,9 @@ jobs:
       #     echo 'foo'
 
       - name: Install build deps
+        working-directory: /workspace/chromium/src
         run: |
           export PATH="$PATH:/workspace/depot_tools"
-          cd /workspace/chromium/src
           ./build/install-build-deps.sh --no-chromeos-fonts
 
       - name: Start SSH via tmate
@@ -60,11 +61,12 @@ jobs:
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          
 
       - name: Build chromedriver
+        working-directory: /workspace/chromium/src
         run: |
           export PATH="$PATH:/workspace/depot_tools"
-          cd /workspace/chromium/src
           gn gen out/Default
           autoninja -C out/Default chromedriver
           
@@ -74,5 +76,6 @@ jobs:
       #     path: path/to/artifact
 
       - name: Display structure of downloaded files
-        run: ls -R 
         working-directory: /workspace/chromium/src/out/Default
+        run: ls -R 
+        
