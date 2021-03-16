@@ -30,23 +30,23 @@ jobs:
           sudo apt upgrade
           sudo apt install -y lsb-release sudo
           sudo apt install -y openssh-client git python
-        
-      - name: Start SSH via tmate
-        uses: P3TERX/ssh2actions@v1.0.0
 
       - name: Install depo_tools
         run: |
           sudo mkdir /workspace
           sudo chown -R $(id -u):$(id -g) /workspace
           cd /workspace
-          git clone -b "88.0.4324.150" --single-branch --depth 1 https://github.com/chromium/chromium.git chromium
+          git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
+          export PATH="$PATH:/workspace/depot_tools"
       
       - name: Get chromium code
         run: |
           export PATH="$PATH:/workspace/depot_tools"
           mkdir /workspace/chromium
-          cd /workspace/chromium
-          fetch --nohooks --no-history chromium 
+          git clone -b "88.0.4324.150" --single-branch --depth 1 https://github.com/chromium/chromium.git chromium
+      
+      - name: Start SSH via tmate
+        uses: P3TERX/ssh2actions@v1.0.0
       
       # - name: Update call_function.js
       #   run: |
