@@ -46,12 +46,12 @@ jobs:
           cd /workspace/chromium
           fetch --nohooks --no-history chromium 
       
-      - name: Update call_function.js
-        run: |
-          echo 'foo'
+      # - name: Update call_function.js
+      #   run: |
+      #     echo 'foo'
 
       - name: Start SSH via tmate
-        uses: P3TERX/ssh2actions@main
+        uses: P3TERX/ssh2actions@v1.0.0
 
       - name: Install build deps
         run: |
