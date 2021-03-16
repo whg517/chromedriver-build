@@ -44,8 +44,12 @@ jobs:
           export PATH="$PATH:/workspace/depot_tools"
           mkdir /workspace/chromium
           cd /workspace/chromium
-          fetch --nohooks chromium
+          fetch --nohooks --no-history chromium 
       
+      - name: Update call_function.js
+        run: |
+          echo 'foo'
+
       - name: Install build deps
         run: |
           export PATH="$PATH:/workspace/depot_tools"
