@@ -25,17 +25,19 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Install System require depedencies
+      - name: Initialization environment
         run: |
-          sudo apt upgrade
-          sudo apt install -y lsb-release sudo
-          sudo apt install -y openssh-client git python
+          sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
+          sudo -E apt-get -qq update
+          sudo -E apt upgrade
+          sudo -E apt-get -qq install $(curl -fsSL git.io/depends-ubuntu-1804)
+          sudo -E apt-get -qq autoremove --purge
+          sudo mkdir /workspace
+          sudo chown $USER:$GROUPS /workspace
 
       - name: Install depo_tools
+        working-directory: /workspace
         run: |
-          sudo mkdir /workspace
-          sudo chown -R $(id -u):$(id -g) /workspace
-          cd /workspace
           git clone https://chromium.googlesource.com/chromium/tools/depot_tools.git
           export PATH="$PATH:/workspace/depot_tools"
       
