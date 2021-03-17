@@ -18,7 +18,7 @@ jobs:
   # This workflow contains a single job called "build"
   build:
     # The type of runner that the job will run on
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-16.04
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
@@ -35,16 +35,11 @@ jobs:
           sudo mkdir /workspace
           sudo chown $USER:$GROUPS /workspace
 
-      - name: Start SSH via tmate
-        uses: P3TERX/ssh2actions@v1.0.0
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-
-      - name: Pre-Install system dep package
-        run: |
-          sudo -E apt -y install libglib2.0-0:i386
-          sudo -E apt -y --allow-downgrades install php7.2-common=7.2.24-0ubuntu0.18.04.7
+      # - name: Start SSH via tmate
+      #   uses: P3TERX/ssh2actions@v1.0.0
+      #   env:
+      #     TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      #     TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 
       - name: Install depo_tools
         working-directory: /workspace
