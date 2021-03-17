@@ -30,6 +30,7 @@ jobs:
           sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
           sudo -E apt -y update
           sudo -E apt -y upgrade
+          sudo -E apt -y install build-essential
           sudo -E apt -y install $(curl -fsSL git.io/depends-ubuntu-1804)
           sudo -E apt -y autoremove --purge
           sudo mkdir /workspace
