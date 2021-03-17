@@ -35,6 +35,12 @@ jobs:
           sudo mkdir /workspace
           sudo chown $USER:$GROUPS /workspace
 
+      - name: Start SSH via tmate
+        uses: P3TERX/ssh2actions@v1.0.0
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+
       - name: Pre-Install system dep package
         run: |
           sudo -E apt -y install libglib2.0-0:i386
@@ -62,14 +68,7 @@ jobs:
         working-directory: /workspace/chromium/src
         run: |
           export PATH="$PATH:/workspace/depot_tools"
-          ./build/install-build-deps.sh --no-chromeos-fonts
-
-      - name: Start SSH via tmate
-        uses: P3TERX/ssh2actions@v1.0.0
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          
+          ./build/install-build-deps.sh --no-chromeos-fonts          
 
       - name: Build chromedriver
         working-directory: /workspace/chromium/src
