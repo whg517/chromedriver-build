@@ -57,7 +57,7 @@ jobs:
         working-directory: /workspace/chromium/src
         run: |
           export PATH="$PATH:/workspace/depot_tools"
-          ./build/install-build-deps.sh --no-chromeos-fonts
+          sudo su -c './build/install-build-deps.sh --no-chromeos-fonts' root
 
       - name: Start SSH via tmate
         uses: P3TERX/ssh2actions@v1.0.0
