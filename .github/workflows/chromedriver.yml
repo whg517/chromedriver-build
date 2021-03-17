@@ -29,10 +29,7 @@ jobs:
         run: |
           sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
           sudo -E apt -y update
-          sudo -E apt -y install g++-5-multilib
-          sudo -E apt -y upgrade
-          sudo -E apt -y install $(curl -fsSL git.io/depends-ubuntu-1804)
-          sudo -E apt -y autoremove --purge
+          sudo -E apt -y install git
           sudo mkdir /workspace
           sudo chown $USER:$GROUPS /workspace
 
@@ -64,7 +61,7 @@ jobs:
         working-directory: /workspace/chromium/src
         run: |
           export PATH="$PATH:/workspace/depot_tools"
-          ./build/install-build-deps.sh --no-chromeos-fonts          
+          sudo su -c "./build/install-build-deps.sh --no-chromeos-fonts" root
 
       - name: Build chromedriver
         working-directory: /workspace/chromium/src
