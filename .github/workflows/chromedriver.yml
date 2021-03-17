@@ -37,7 +37,7 @@ jobs:
 
       - name: Pre-Install system dep package
         run: |
-          sudo -E apt -y install libglib2.0-0 
+          sudo -E apt -y install libglib2.0-0:i386
           sudo -E apt -y --allow-downgrades install php7.2-common=7.2.24-0ubuntu0.18.04.7
 
       - name: Install depo_tools
